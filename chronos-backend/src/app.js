@@ -1,18 +1,34 @@
 const express = require('express');
 const cors = require('cors');
-require('dotenv').config(); 
+const rateLimit = require('express-rate-limit');
 const ticketRoutes = require('./routes/ticketRoutes');
+require('dotenv').config(); 
 
 const app = express();
 
-// --- Middlewares ---
-// O comando abaixo permite que o servidor entenda JSON (vinda do Postman/React)
+app.set('trust proxy', 1);
+
 app.use(cors());
 app.use(express.json());
 
-// --- Rotas ---
-// Definimos o prefixo '/api/tickets'.
-// Isso significa que todas as rotas do arquivo ticketRoutes terão esse prefixo antes.
+// 2. Limitador Geral (Para todo o site)
+// Permite 100 requisições a cada 15 minutos por IP
+const globalLimiter = rateLimit({
+  windowMs: 15 * 60 * 1000, // 15 minutos
+  max: 100, 
+  message: 'Muitas requisições vindas deste IP, tente novamente mais tarde.'
+});
+
+// 3. Limitador Específico para CRIAÇÃO de Tickets 
+// Permite apenas 5 tickets por hora por IP
+const createTicketLimiter = rateLimit({
+  windowMs: 60 * 60 * 1000, // 1 hora
+  max: 5,
+  message: { error: '⛔ Você excedeu o limite de 5 tickets por hora.' }
+});
+
+app.use(globalLimiter);
+
 app.use('/api/tickets', ticketRoutes);
 
 // --- Inicialização ---
