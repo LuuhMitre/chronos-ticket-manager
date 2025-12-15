@@ -1,0 +1,107 @@
+.list-container {
+  max-width: 900px;
+  margin: 0 auto;
+  padding-bottom: 50px;
+}
+
+.grid {
+  display: grid;
+  grid-template-columns: repeat(auto-fill, minmax(320px, 1fr));
+  gap: 20px;
+}
+
+.ticket-card {
+  background: white;
+  padding: 20px;
+  border-radius: 10px;
+  box-shadow: 0 4px 6px rgba(0,0,0,0.05);
+  display: flex;
+  flex-direction: column;
+  transition: transform 0.2s;
+}
+
+.ticket-card:hover {
+  transform: translateY(-5px);
+  box-shadow: 0 8px 15px rgba(0,0,0,0.1);
+}
+
+.card-header {
+  display: flex;
+  justify-content: space-between;
+  color: #95a5a6;
+  font-size: 0.8rem;
+  margin-bottom: 10px;
+}
+
+h3 { margin: 0 0 5px 0; color: #2c3e50; font-size: 1.2rem; }
+
+.client-name {
+  color: #34495e;
+  font-weight: bold;
+  font-size: 0.95rem;
+  margin: 0 0 15px 0;
+}
+
+.desc { color: #7f8c8d; font-size: 0.95rem; line-height: 1.4; flex-grow: 1; margin-bottom: 20px; }
+
+.meta {
+  background: #f8f9fa;
+  padding: 12px;
+  border-radius: 6px;
+  font-size: 0.85rem;
+  color: #555;
+  margin-bottom: 15px;
+}
+
+.meta-row {
+  display: flex;
+  justify-content: space-between;
+  margin-bottom: 8px;
+  border-bottom: 1px dashed #e0e0e0;
+  padding-bottom: 4px;
+}
+
+.sla-status {
+  text-align: center;
+  padding: 8px;
+  border-radius: 4px;
+  font-weight: bold;
+  font-size: 0.95rem;
+  margin-top: 10px;
+}
+
+/* Cores do SLA */
+.sla-ok {
+  background-color: #d4edda;
+  color: #155724; /* Verde Escuro */
+  border: 1px solid #c3e6cb;
+}
+
+.sla-breached {
+  background-color: #f8d7da;
+  color: #d63031; /* Vermelho Forte */
+  border: 1px solid #f5c6cb;
+  animation: pulse 2s infinite; /* Efeito de pulso para chamar atenção */
+}
+
+.sla-done {
+  background-color: #e2e6ea;
+  color: #636e72;
+}
+
+@keyframes pulse {
+  0% { box-shadow: 0 0 0 0 rgba(231, 76, 60, 0.4); }
+  70% { box-shadow: 0 0 0 10px rgba(231, 76, 60, 0); }
+  100% { box-shadow: 0 0 0 0 rgba(231, 76, 60, 0); }
+}
+
+.actions label { font-size: 0.8rem; color: #95a5a6; margin-bottom: 4px; display: block; }
+.actions select {
+  width: 100%;
+  padding: 8px;
+  border-radius: 4px;
+  font-weight: bold;
+  background-color: white;
+  cursor: pointer;
+  border-width: 2px;
+}

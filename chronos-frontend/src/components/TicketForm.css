@@ -1,0 +1,82 @@
+.form-container {
+  max-width: 500px;
+  margin: 2rem auto;
+  padding: 2.5rem;
+  background: #ffffff;
+  border-radius: 12px;
+  /* Sombra suave com um tom levemente arroxeado */
+  box-shadow: 0 10px 25px rgba(108, 92, 231, 0.15); 
+  font-family: 'Segoe UI', Tahoma, Geneva, Verdana, sans-serif;
+  border-top: 5px solid #6c5ce7; /* Detalhe Roxo no topo */
+  }
+
+h2 {
+  text-align: center; 
+  color: #6c5ce7; 
+  margin-bottom: 1.5rem; 
+  font-weight: 700;
+}
+
+.form-group { margin-bottom: 1.2rem; }
+
+label {
+  display: block;
+  margin-bottom: 0.5rem;
+  font-weight: 600;
+  color: #34495e;
+}
+
+input, select, textarea {
+width: 100%;
+  padding: 12px;
+  border: 2px solid #dfe6e9;
+  border-radius: 8px;
+  font-size: 15px;
+  box-sizing: border-box;
+  transition: all 0.3s ease;
+  background-color: #fcfcfc;
+}
+
+input:focus, select:focus, textarea:focus {
+  border-color: #a29bfe;
+  box-shadow: 0 0 0 3px rgba(162, 155, 254, 0.3);
+  outline: none;
+  background-color: white;
+}
+
+button {
+  width: 100%;
+  padding: 14px;
+  background: linear-gradient(135deg, #6c5ce7 0%, #928bfc 100%);
+  color: white;
+  border: none;
+  border-radius: 8px;
+  font-size: 16px;
+  cursor: pointer;
+  font-weight: bold;
+  transition: transform 0.2s, box-shadow 0.2s;
+  text-transform: uppercase;
+  letter-spacing: 0.5px;
+}
+
+button:hover { 
+  transform: translateY(-2px);
+  box-shadow: 0 5px 15px rgba(108, 92, 231, 0.4);
+}
+button:disabled {
+  background: #b2bec3; 
+  cursor: not-allowed; 
+  transform: none;
+  box-shadow: none;
+}
+
+.msg {
+  margin-top: 1rem;
+  padding: 12px;
+  border-radius: 6px;
+  text-align: center;
+  font-weight: bold;
+}
+
+.success { background-color: #d1d8e0; color: #4834d4; border: 1px solid #a29bfe; }
+.error { background-color: #ff7675; color: white; }
