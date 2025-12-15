@@ -10,9 +10,16 @@
 
 ## 📖 Sobre o Projeto
 
+
 O **Chronos Ticket Manager** é uma aplicação desenvolvida para gerenciar tickets de suporte em provedores de internet e empresas de TI. 
 
 O diferencial deste projeto é a arquitetura orientada a dados: **o cálculo do SLA (Service Level Agreement) não é feito no código da aplicação, mas sim diretamente no Banco de Dados** através de Triggers e Functions em PL/pgSQL. Isso garante integridade, performance e centralização da regra de negócio.
+
+<h3>
+  <a href="http://chronos-ticket-manager.up.railway.app/" target="_blank">
+    🔗 Clique aqui para acessar a demonstração online
+  </a>
+</h3>
 
 ### 🎯 Funcionalidades Atuais
 
