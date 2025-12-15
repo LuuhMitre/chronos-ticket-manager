@@ -1,22 +1,33 @@
 const { Pool } = require('pg');
-
 require('dotenv').config();
 
-const pool = new Pool({
-    user: process.env.DB_USER,
-    host: process.env.DB_HOST,
-    database: process.env.DB_DATABASE,
-    password: process.env.DB_PASSWORD,
-    port: process.env.DB_PORT,
+const dbConfig = process.env.DATABASE_URL
+  ? {
+      connectionString: process.env.DATABASE_URL,
+      ssl: {
+        rejectUnauthorized: false 
+      }
+    }
+  : {
+      user: process.env.DB_USER,
+      host: process.env.DB_HOST,
+      database: process.env.DB_DATABASE,
+      password: process.env.DB_PASSWORD,
+      port: process.env.DB_PORT,
+    };
+
+const pool = new Pool(dbConfig);
+
+// Log para avisar se conectou
+pool.connect((err, client, release) => {
+  if (err) {
+    console.error('❌ Erro fatal ao conectar no Banco:', err.message);
+  } else {
+    console.log('📦 Banco de Dados conectado com sucesso!');
+    release();
+  }
 });
 
-pool.on('connect', () => {
-    console.log('📦 Base de Dados conectada com sucesso!');
-});
-
-pool.on('error', (err) => {
-    console.error('❌ Erro inesperado no cliente do banco de dados', err);
-    process.exit(-1)
-});
-
-module.exports = pool;
+module.exports = {
+  query: (text, params) => pool.query(text, params),
+};
