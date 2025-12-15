@@ -70,49 +70,53 @@ function TicketList({ shouldRefresh }) {
             <h2 style={{ textAlign: 'center', marginTop: '40px', color: '#4834d4', fontWeight: 'bold' }}>Painel de Gestão</h2>
             
             <div className='grid'>
-                {tickets.map((ticket) => {
-                    const slaInfo = calculateSLADisplay(ticket.sla_deadline, ticket.status);
-                    return (
-                        <div key={ticket.id} className='ticket-card' style={{ borderLeft: `6px solid ${getStatusColor(ticket.status)}` }}>
-                            
-                            <div className='card-header'>
-                                <span className='id'>#{ticket.id}</span>
-                                <span className='date'>Aberto: {formatDate(ticket.created_at)}</span>
-                            </div>
-
-                            <h3>{ticket.title}</h3>
-                            <p className="client-name">👤 {ticket.client_name}</p> 
-                            <p className='desc'>{ticket.description}</p>
-
-                            <div className='meta'>
-                                <div className='meta-row'>
-                                    <span>Contrato:</span>
-                                    <strong>{ticket.client_tier}</strong>
+                {Array.isArray(tickets) && tickets.length > 0 ? (
+                    tickets.map((ticket) => {
+                        const slaInfo = calculateSLADisplay(ticket.sla_deadline, ticket.status);
+                        return (
+                            <div key={ticket.id} className='ticket-card' style={{ borderLeft: `6px solid ${getStatusColor(ticket.status)}` }}>
+                                <div className='card-header'>
+                                    <span className='id'>#{ticket.id}</span>
+                                    <span className='date'>Aberto: {formatDate(ticket.created_at)}</span>
                                 </div>
-                                <div className='meta-row'>
-                                    <span>Prazo Limite:</span>
-                                    <span>{formatDate(ticket.sla_deadline)}</span>
+                                <h3>{ticket.title}</h3>
+                                <p className="client-name">👤 {ticket.client_name}</p> 
+                                <p className='desc'>{ticket.description}</p>
+                                <div className='meta'>
+                                    <div className='meta-row'>
+                                        <span>Contrato:</span>
+                                        <strong>{ticket.client_tier}</strong>
+                                    </div>
+                                    <div className='meta-row'>
+                                        <span>Prazo Limite:</span>
+                                        <span>{formatDate(ticket.sla_deadline)}</span>
+                                    </div>
+                                    <div className={`sla-status ${slaInfo.className}`}>
+                                        {slaInfo.text}
+                                    </div>
                                 </div>
-                                <div className={`sla-status ${slaInfo.className}`}>
-                                    {slaInfo.text}
+                                <div className='actions'>
+                                    <label>Status:</label>
+                                    <select
+                                        value={ticket.status} 
+                                        onChange={(e) => handleStatusChange(ticket.id, e.target.value)}
+                                        style={{ borderColor: getStatusColor(ticket.status), color: getStatusColor(ticket.status) }}
+                                    >
+                                        <option value="Aberto">Aberto</option>
+                                        <option value="Em análise">Em análise</option>
+                                        <option value="Concluído">Concluído</option>
+                                    </select>   
                                 </div>
                             </div>
-
-                            <div className='actions'>
-                                <label>Status:</label>
-                                <select
-                                    value={ticket.status} 
-                                    onChange={(e) => handleStatusChange(ticket.id, e.target.value)}
-                                    style={{ borderColor: getStatusColor(ticket.status), color: getStatusColor(ticket.status) }}
-                                >
-                                    <option value="Aberto">Aberto</option>
-                                    <option value="Em análise">Em análise</option>
-                                    <option value="Concluído">Concluído</option>
-                                </select>   
-                            </div>
-                        </div>
-                    );
-                })}
+                        );
+                    })
+                ) : (
+                    <div style={{ textAlign: 'center', color: '#636e72', width: '100%', padding: '20px' }}>
+                        <h3>Nenhum ticket encontrado... ou ocorreu um erro.</h3>
+                        <p>Verifique se o Backend está rodando corretamente.</p>
+                    </div>
+                )}
+                
             </div>
         </div>
     );
